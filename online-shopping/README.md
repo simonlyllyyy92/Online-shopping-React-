@@ -1,7 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Packages installed 
+## Tech
 1. node-sass for sass styling setup
+2. google fonts (fonts.google.com) search the fonts copy the link to htmml
 
 ## Available Scripts
 
