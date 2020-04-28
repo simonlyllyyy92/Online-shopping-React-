@@ -12,9 +12,24 @@ import {setCurrentUser} from './redux/user/user.action'
 import {selectCurrentUser} from './redux/user/user.selectors'
 import {createStructuredSelector} from 'reselect'
 import CheckoutPage from './pages/checkout/checkout.component'
-
+import SideDrawer from './components/header-side-drawer/header-side-drawer.component'
+import BackDrop from './components/back-drop/back-drop.component'
 
 class App extends React.Component{
+
+  state = {
+    sideDrawerOpen: false
+  }
+
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return {sideDrawerOpen: !prevState.sideDrawerOpen}
+    })
+  }
+
+  backdropClickHandler = () => {
+    this.setState({sideDrawerOpen: false})
+  }
 
   unsubscribeFromAuth = null
 
@@ -25,7 +40,6 @@ class App extends React.Component{
         const userRef = await createUserProfileDoc(userAuth)
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-           
               id: snapShot.id,
               ...snapShot.data()
           })
@@ -43,9 +57,17 @@ class App extends React.Component{
   }
 
   render() {
+
+    let backdrop = null;
+
+    if(this.state.sideDrawerOpen) {
+      backdrop = <BackDrop click={this.backdropClickHandler}/>
+    }
     return (
       <div>
-        <Header />
+        <Header drawerClickHandler = {this.drawerToggleClickHandler }/>
+        <SideDrawer show={this.state.sideDrawerOpen}/>
+        {backdrop}
         <Switch>
           <Route exact path = '/' component = {HomePage} />
           <Route path = '/shop' component = {ShopPage} />

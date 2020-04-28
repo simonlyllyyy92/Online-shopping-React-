@@ -7,6 +7,7 @@ import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/integration/react'
 import storeConfig from './redux/store'
 
+
 const {persistor, store} = storeConfig()
 
 ReactDOM.render(

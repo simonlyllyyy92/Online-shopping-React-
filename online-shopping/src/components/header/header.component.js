@@ -9,31 +9,39 @@ import {createStructuredSelector} from 'reselect'
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import {selectCurrentUser} from '../../redux/user/user.selectors'
 import './header.styles.scss'
+import ResponsiveToggleIcon from '../responsive-toggle-icon/responsive-toggle-icon.component'
 
-const Header = ({currentUser, hidden}) => (
-    <div className = 'header'>
-        <Link className = 'logo-container' to='/'>
-            <Logo className = 'logo'/>
+
+
+const Header = ({currentUser, hidden, drawerClickHandler}) => (
+    <div className='header'>
+        <Link className='logo-container' to='/'>
+            <Logo className='logo' />
         </Link>
-        <div className = 'options'>
-            <Link className = 'option' to = '/shop'>
+
+        <div className='options'>
+            <Link className='option' to='/shop'>
                 SHOP
             </Link>
-            <Link className = 'option' to = '/shop'>
+            <Link className='option' to='/shop'>
                 CONTACT
             </Link>
-            {
-                currentUser ?
-                <div className = 'option' onClick = {() => auth.signOut()}>SIGN OUT</div>
-                :
-                <Link className = 'option' to = '/signin'>
-                    SIGN IN
+            {currentUser ? (
+                <div className='option' onClick={() => auth.signOut()}>
+                SIGN OUT
+                </div>
+            ) : (
+                <Link className='option' to='/signin'>
+                SIGN IN
                 </Link>
-            }
+            )}
+            <div className = 'toggle-button'>
+                <ResponsiveToggleIcon click = {drawerClickHandler}/>
+            </div>
+            
             <CartIcon />
         </div>
-        {hidden ? null : <CartDropDown /> }
-        
+        {hidden ? null : <CartDropDown />}
     </div>
 )
 
