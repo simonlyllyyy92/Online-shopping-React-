@@ -11,6 +11,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
+    @media screen and (max-width:768px){
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
     & .collection-item {
       margin-bottom: 30px;
