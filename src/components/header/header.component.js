@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import {auth} from '../../firebase/firebase.utils'
 import {connect} from 'react-redux'
@@ -8,41 +7,40 @@ import CartDropDown from '../cart-dropdown/cart-dropdown.component'
 import {createStructuredSelector} from 'reselect'
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import {selectCurrentUser} from '../../redux/user/user.selectors'
-import './header.styles.scss'
 import ResponsiveToggleIcon from '../responsive-toggle-icon/responsive-toggle-icon.component'
-
+import {HeaderContainer,ToggleButton,LogoContainer,OptionsContainer,OptionLink,OptionDiv} from './header.styles'
 
 
 const Header = ({currentUser, hidden, drawerClickHandler}) => (
-    <div className='header'>
-        <Link className='logo-container' to='/'>
+    <HeaderContainer>
+        <LogoContainer to='/'>
             <Logo className='logo' />
-        </Link>
+        </LogoContainer>
 
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        <OptionsContainer>
+            <OptionLink  to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/shop'>
+            </OptionLink>
+            <OptionLink to='/shop'>
                 CONTACT
-            </Link>
+            </OptionLink>
             {currentUser ? (
-                <div className='option' onClick={() => auth.signOut()}>
+                <OptionDiv onClick={() => auth.signOut()}>
                 SIGN OUT
-                </div>
+                </OptionDiv>
             ) : (
-                <Link className='option' to='/signin'>
+                <OptionLink to='/signin'>
                 SIGN IN
-                </Link>
+                </OptionLink>
             )}
-            <div className = 'toggle-button'>
+            <ToggleButton>
                 <ResponsiveToggleIcon click = {drawerClickHandler}/>
-            </div>
+            </ToggleButton>
             
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {hidden ? null : <CartDropDown />}
-    </div>
+    </HeaderContainer>
 )
 
 const mapStateToProps = createStructuredSelector ({
